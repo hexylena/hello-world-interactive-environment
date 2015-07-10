@@ -68,6 +68,8 @@ Usage
 * In the UI the container should load (with a nice spinner) and then you should see this image:
   ![](./hello-world.png)
 
+  where file.txt contains the content of the file which was mounted through the /import/
+
 Environment Variables
 =====================
 
