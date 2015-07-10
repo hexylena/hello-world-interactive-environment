@@ -13,17 +13,20 @@ Usage
  $ docker build -t hello-ie .
  ```
  The build process can take some time, but if finished you can run your container with:
+
  ```bash
  $ docker run -it hello-ie
  ```
 * Next, follow the [directions](galaxy-conf/README.md) in the `./galaxy-conf/`
   folder to get the HelloWorld IE installed
-* Ensure that the dynamic proxy is aailable:
+* Ensure that the dynamic proxy is available:
+
   ```bash
   $ cd $GALAXY_ROOT/lib/galaxy/web/proxy/js
   $ npm install .
   ```
 * Set the following configuration options in your `$GALAXY_ROOT/config/galaxy.ini` folder:
+
   ```ini
   dynamic_proxy_manage=True
   dynamic_proxy_session_map=database/session_map.sqlite
