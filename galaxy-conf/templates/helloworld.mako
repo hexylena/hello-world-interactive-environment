@@ -22,8 +22,8 @@ dataset = ie_request.volume(hda.file_name, '/import/file.txt', how='ro')
 #bam_index = ie_request.volume(hda.metadata.bam_index.file_name, '/input/bamfile.bam.bai', how='ro')
 
 ie_request.launch(env_override={
-        'PUB_HOSTNAME': conf["galaxy_url"],
-        'PUB_HTTP_PORT': ie_request.attr.PORT
+        #'PUB_HOSTNAME': conf["galaxy_url"],
+        #'PUB_HTTP_PORT': ie_request.attr.PORT
     },
     volumes=[dataset]
 )
