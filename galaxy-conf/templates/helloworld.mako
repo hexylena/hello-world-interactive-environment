@@ -16,9 +16,8 @@ params = {
 }
 
 notebook_access_url = ie_request.url_template('${PROXY_URL}/')
-service_polling_url = ie_request.url_template('${PROXY_URL_WS}/')
 
-dataset = ie_request.volume(hda.file_name, '/input/file.txt', how='ro')
+dataset = ie_request.volume(hda.file_name, '/import/file.txt', how='ro')
 # If you'd provided a BAM file, you could also mount the index.
 #bam_index = ie_request.volume(hda.metadata.bam_index.file_name, '/input/bamfile.bam.bai', how='ro')
 
@@ -39,7 +38,7 @@ ${ ie.load_default_js() }
 
 <script type="text/javascript">
 ${ ie.default_javascript_variables() }
-var notebook_login_url = '${ notebook_login_url }';
+var notebook_login_url = 'unused';
 var notebook_access_url = '${ notebook_access_url }';
 ${ ie.plugin_require_config() }
 
