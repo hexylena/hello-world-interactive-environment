@@ -16,6 +16,7 @@ Usage
  ```bash
  $ docker run -it hello-ie
  ```
+* Next, follow the [directions](galaxy-conf/README.md) in the `./galaxy-conf/` folder
 
 Environment Variables
 =====================
