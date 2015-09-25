@@ -38,30 +38,26 @@ Usage
   ```
 * At this point you should be able to launch Galaxy, upload a text dataset,
   and click "Visualize" and "HelloWorld"
-* Galaxy will launch the Interactive Environment in the background:
-  ```log
-  galaxy.web.base.interactive_environments INFO 2015-07-10 14:19:12,988 Starting docker container for IE helloworld with command [docker run -e "GALAXY_URL=" -e "CORS_ORIGIN=http://localhost:8080" -e "HISTORY_ID=1cd8e2f6b131e891" -e "DOCKER_PORT=32849" -e "API_KEY=..." -e "REMOTE_HOST=127.0.0.1" -d --sig-proxy=true -e DEBUG=false -p 32849:80 -v "/home/hxr/work/galaxy/database/tmp/tmpXccEtq:/import/" -v "/home/hxr/work/galaxy/database/files/000/dataset_19.dat:/import/file.txt:ro" hello-ie]
-  fa587da7f48c03a025cd158a41003086c7b52d12924bc51f98f581211989ccba
-  127.0.0.1 - - [10/Jul/2015:14:19:12 -0500] "GET /visualization/show/helloworld?dataset_id=f09437b8822035f7 HTTP/1.1" 200 - "http://localhost:8080/root" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:38.0) Gecko/20100101 Firefox/38.0"
-  ```
-
-  as you can see the container was launched with this command built for you:
+* Galaxy will launch the Interactive Environment in the background. As you can
+  see the container was launched with this command built for you:
 
   ```console
-  $ docker run \
-        -e "GALAXY_URL=" \
-        -e "CORS_ORIGIN=http://localhost:8080" \
-        -e "HISTORY_ID=1cd8e2f6b131e891" \
-        -e "DOCKER_PORT=32849" \
-        -e "API_KEY=..." \
+    $ docker run --sig-proxy=true \
+        -d -P \
+        -e "API_KEY=1712364174a0ff79b34e9a78fee3ca1c" \
+        -e "CORS_ORIGIN=http://localhost" \
+        -e "CUSTOM=42" \
+        -e "DEBUG=false" \
+        -e "GALAXY_PASTER_PORT=8000" \
+        -e "GALAXY_URL=http://localhost/galaxy/" \
+        -e "GALAXY_WEB_PORT=8000" \
+        -e "HISTORY_ID=f2db41e1fa331b3e" \
+        -e "PROXY_PREFIX=/galaxy/gie_proxy" \
         -e "REMOTE_HOST=127.0.0.1" \
-        -d \
-        --sig-proxy=true \
-        -e DEBUG=false \
-        -p 32849:80 \
-        -v "/home/hxr/work/galaxy/database/tmp/tmpXccEtq:/import/" \
-        -v "/home/hxr/work/galaxy/database/files/000/dataset_19.dat:/import/file.txt:ro" 
-        hello-ie
+        -e "USER_EMAIL=hxr@local.host" \
+        -v "/home/hxr/work/galaxy/database/tmp/tmp5HaqZy:/import/" \
+        -v "/home/hxr/work/galaxy/database/files/000/dataset_68.dat:/import/file.dat:ro" \
+      hello-ie
   ```
 * In the UI the container should load (with a nice spinner) and then you should see this image:
   ![](./hello-world.png)
@@ -75,15 +71,15 @@ Several environment variables are available by default, per IE rough standards
 
 Variable            | Use
 ------------------- | ---
-`GALAXY_WEB_PORT`   | Port on which Galaxy is running, if applicable
-`NOTEBOOK_PASSWORD` | Password with which to secure the RStudio login. The default username is `galaxy`
-`CORS_ORIGIN`       | If the notebook is proxied, this is the URL the end-user will see when trying to access a notebook
-`DOCKER_PORT`       | Used in Galaxy Interactive Environments to ensure that proxy routes are unique and accessible
 `API_KEY`           | Galaxy API Key with which to interface with Galaxy
-`HISTORY_ID`        | ID of current Galaxy History, used in easing the dataset upload/download process
-`REMOTE_HOST`       | Unused
-`GALAXY_URL`        | URL at which Galaxy is accessible
+`CORS_ORIGIN`       | If the notebook is proxied, this is the URL the end-user will see when trying to access a notebook
 `DEBUG`             | Enable debugging mode, mostly for developers
+`PROXY_PREFIX`      | Used in Galaxy Interactive Environments to ensure that the GIE is under the same cookie path as Galaxy.
+`GALAXY_URL`        | URL at which Galaxy is accessible
+`GALAXY_WEB_PORT`   | Port on which Galaxy is running, if applicable
+`HISTORY_ID`        | ID of current Galaxy History, used in easing the dataset upload/download process
+`NOTEBOOK_PASSWORD` | Password with which to secure the RStudio login. The default username is `galaxy`
+`REMOTE_HOST`       | Unused
 
 
 Authors
@@ -96,4 +92,4 @@ History
 =======
 
 - v0.1: Initial public release
-
+- v0.2: Updated to 15.10 standards
