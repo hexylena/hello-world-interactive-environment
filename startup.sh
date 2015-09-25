@@ -1,7 +1,7 @@
 #!/bin/bash
 
-sed -i "s| '\*'; # IE_CORS_ORIGIN| '${CORS_ORIGIN}';|" /proxy.conf;
-cp /proxy.conf /etc/nginx/conf.d/default.conf;
+sed -i "s|PROXY_PREFIX|${PROXY_PREFIX}|" /proxy.conf;
+cp /proxy.conf /etc/nginx/sites-enabled/default;
 
 # Here you would normally start whatever service you want to start. In our
 # example we start a simple directory listing service on port 8000

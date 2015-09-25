@@ -1,51 +1,37 @@
 <%namespace name="ie" file="ie.mako" />
-
 <%
-import subprocess
-from galaxy.util import sockets
 # Sets ID and sets up a lot of other variables
 ie_request.load_deploy_config()
-ie_request.attr.docker_port = 80
-conf = ie_request.get_conf_dict()
-## General IE specific
-# Access URLs for the notebook from within galaxy.
-# http://bag:8080/?bam=http://bag:8080/tmp/bamfile.bam
-params = {
-    'galaxy_url': ie_request.attr.viz_config.get("docker", "galaxy_url"),
-    'galaxy_port': ie_request.attr.PORT
-}
 
-notebook_access_url = ie_request.url_template('${PROXY_URL}/')
+# Define a volume that will be mounted into the container.
+# This is a useful way to provide access to large files in the container,
+# if the user knows ahead of time that they will need it.
+user_file = ie_request.volume(
+    hda.file_name, '/import/file.dat', how='ro')
 
-dataset = ie_request.volume(hda.file_name, '/import/file.txt', how='ro')
-# If you'd provided a BAM file, you could also mount the index.
-#bam_index = ie_request.volume(hda.metadata.bam_index.file_name, '/input/bamfile.bam.bai', how='ro')
-
-ie_request.launch(env_override={
-        #'PUB_HOSTNAME': conf["galaxy_url"],
-        #'PUB_HTTP_PORT': ie_request.attr.PORT
-    },
-    volumes=[dataset]
+# Launch the IE. This builds and runs the docker command in the background.
+ie_request.launch(
+    volumes=[user_file],
+    env_override={
+        'custom': '42'
+    }
 )
-root = h.url_for( '/' )
 
+# Only once the container is launched can we template our URLs. The ie_request
+# doesn't have all of the information needed until the container is running.
+url = ie_request.url_template('${PROXY_URL}/helloworld/')
 %>
 <html>
 <head>
 ${ ie.load_default_js() }
 </head>
 <body>
-
 <script type="text/javascript">
 ${ ie.default_javascript_variables() }
-var notebook_login_url = 'unused';
-var notebook_access_url = '${ notebook_access_url }';
+var url = '${ url }';
 ${ ie.plugin_require_config() }
-
-// Load notebook
-
 requirejs(['interactive_environments', 'plugin/helloworld'], function(){
-    load_notebook(ie_password, notebook_login_url, notebook_access_url);
+    load_notebook(url);
 });
 </script>
 <div id="main" width="100%" height="100%">
