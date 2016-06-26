@@ -1,0 +1,20 @@
+diff --git a/templates/index.html b/templates/index.html
+index c8d0c7c..7aa385f 100644
+--- a/templates/index.html
++++ b/templates/index.html
+@@ -7,6 +7,7 @@
+ 
+ </head>
+ <body>
++<div class="content" style="height: 600px; overflow-y:scroll">
+ 
+   <div class="header">
+     <h1>Python {{ python_version }}</h1>
+@@ -129,6 +130,7 @@
+     </p>
+   </div>
+ 
++</div>
+ 
+ </body>
+ </html>
