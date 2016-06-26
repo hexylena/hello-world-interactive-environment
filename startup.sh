@@ -5,9 +5,9 @@ cp /proxy.conf /etc/nginx/nginx.conf;
 
 # Here you would normally start whatever service you want to start. In our
 # example we start a simple directory listing service on port 8000
-cd /import/ && python -mSimpleHTTPServer &
 cd /app/ && python app.py &
 
+ln -s /import /web/helloworld/dir;
 
 # Launch traffic monitor which will automatically kill the container if traffic
 # stops
