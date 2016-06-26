@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Take the netstat output the estimate if the client is still connected to
 # the RStudio server. The 'CLOSE_WAIT' state will be ignored. It

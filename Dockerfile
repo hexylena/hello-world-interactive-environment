@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM alpine
 MAINTAINER Eric Rasche <esr@tamu.edu>
 
 ENV DEBIAN_FRONTEND=noninteractive \
@@ -13,24 +13,27 @@ ENV DEBIAN_FRONTEND=noninteractive \
     GALAXY_URL=none
 
 # Ensure cran is available
-RUN apt-get -qq update && \
-    apt-get install --no-install-recommends -y \
-        wget procps nginx python python-pip net-tools nginx git
+RUN apk update && \
+    apk add \
+        wget procps nginx python py-pip net-tools nginx git patch
 
 ADD ./startup.sh /startup.sh
 ADD ./monitor_traffic.sh /monitor_traffic.sh
 
-RUN mkdir -p /import /web/helloworld
+RUN mkdir -p /import /web/helloworld /run/nginx
 
 COPY ./proxy.conf /proxy.conf
 COPY ./index.html /web/helloworld/
+COPY ./scroll.patch /web/
 
 VOLUME ["/import"]
 WORKDIR /import/
 
 RUN git clone https://github.com/lifenglifeng001/flask-hello /app && \
     cd /app && \
-    pip install -r requirements.txt
+    pip install -r requirements.txt && \
+    patch -p1 < /web/scroll.patch
+
 
 EXPOSE 80
 CMD /startup.sh
