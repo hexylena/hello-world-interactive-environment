@@ -2,16 +2,12 @@
 <%
 # Sets ID and sets up a lot of other variables
 ie_request.load_deploy_config()
-
-# Define a volume that will be mounted into the container.
-# This is a useful way to provide access to large files in the container,
-# if the user knows ahead of time that they will need it.
-user_file = ie_request.volume(
-    hda.file_name, '/import/file.dat', how='ro')
+ie_request.attr.import_volume = False
 
 # Launch the IE. This builds and runs the docker command in the background.
 ie_request.launch(
-    volumes=[user_file],
+    image=trans.request.params.get('image_tag', None),
+    additional_ids=trans.request.params.get('additional_dataset_ids', None),
     env_override={
         'custom': '42'
     }
