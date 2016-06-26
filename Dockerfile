@@ -15,17 +15,22 @@ ENV DEBIAN_FRONTEND=noninteractive \
 # Ensure cran is available
 RUN apt-get -qq update && \
     apt-get install --no-install-recommends -y \
-        wget procps nginx python python-pip net-tools nginx
+        wget procps nginx python python-pip net-tools nginx git
 
 ADD ./startup.sh /startup.sh
 ADD ./monitor_traffic.sh /monitor_traffic.sh
 
-RUN mkdir /import
+RUN mkdir -p /import /web/helloworld
 
 COPY ./proxy.conf /proxy.conf
+COPY ./index.html /web/helloworld/
 
 VOLUME ["/import"]
 WORKDIR /import/
+
+RUN git clone https://github.com/lifenglifeng001/flask-hello /app && \
+    cd /app && \
+    pip install -r requirements.txt
 
 EXPOSE 80
 CMD /startup.sh
