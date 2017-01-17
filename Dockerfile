@@ -15,7 +15,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
 # Ensure cran is available
 RUN apk update && \
     apk add \
-        wget procps nginx python py-pip net-tools nginx git patch
+        wget procps nginx python py2-pip net-tools nginx git patch
 
 ADD ./startup.sh /startup.sh
 ADD ./monitor_traffic.sh /monitor_traffic.sh
