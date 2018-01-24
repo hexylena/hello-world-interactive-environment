@@ -25,7 +25,7 @@ Usage
   $ cd $GALAXY_ROOT/lib/galaxy/web/proxy/js
   $ npm install .
   ```
-* Set the following configuration options in your `$GALAXY_ROOT/config/galaxy.ini` folder:
+* Set the following configuration options in your `$GALAXY_ROOT/config/galaxy.ini` file:
 
   ```ini
   dynamic_proxy_manage=True
@@ -36,6 +36,15 @@ Usage
   # Enable verbose debugging of Galaxy-managed dynamic proxy.
   dynamic_proxy_debug=True
   ```
+  
+  Also make sure that:
+  
+  ```ini
+  interactive_environment_plugins_directory = config/plugins/interactive_environments
+  ```
+  
+  is set in the same file, pointing to the directory where you IEs are. Otherwise the IEs won't be loaded.
+  
 * At this point you should be able to launch Galaxy, upload a text dataset,
   and click "Visualize" and "HelloWorld"
 * Galaxy will launch the Interactive Environment in the background. As you can
