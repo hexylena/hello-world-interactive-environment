@@ -86,7 +86,7 @@ Authors
 =======
 
  * Bjoern Gruening
- * Eric Rasche
+ * Helena Rasche
 
 History
 =======

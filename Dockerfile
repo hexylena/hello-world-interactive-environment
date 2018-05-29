@@ -1,5 +1,4 @@
 FROM alpine
-MAINTAINER Eric Rasche <esr@tamu.edu>
 
 ENV DEBIAN_FRONTEND=noninteractive \
     DEBUG=false \
