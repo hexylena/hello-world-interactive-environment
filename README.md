@@ -25,7 +25,7 @@ Usage
   $ cd $GALAXY/lib/galaxy/web/proxy/js
   $ npm install .
   ```
-* Set the following configuration options in your `$GALAXY_ROOT/config/galaxy.ini` file:
+* Set the following configuration options in your `$GALAXY/config/galaxy.ini` file:
 
   ```ini
   dynamic_proxy_manage=True
@@ -47,6 +47,7 @@ Usage
   
 * At this point you should be able to launch Galaxy, upload a text dataset,
   and click "Visualize" and "HelloWorld"
+  
 * Galaxy will launch the Interactive Environment in the background. As you can
   see the container was launched with this command built for you:
 
