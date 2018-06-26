@@ -102,3 +102,4 @@ History
 
 - v0.1: Initial public release
 - v0.2: Updated to 15.10 standards
+- v0.3: Remove broken flask-hello
