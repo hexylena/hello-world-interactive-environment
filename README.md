@@ -22,7 +22,7 @@ Usage
 * Ensure that the dynamic proxy is available:
 
   ```bash
-  $ cd $GALAXY_ROOT/lib/galaxy/web/proxy/js
+  $ cd $GALAXY/lib/galaxy/web/proxy/js
   $ npm install .
   ```
 * Set the following configuration options in your `$GALAXY_ROOT/config/galaxy.ini` file:
