@@ -15,7 +15,7 @@ Usage
  The build process can take some time, but if finished you can run your container with:
 
  ```bash
- $ docker run -it hello-ie
+ $ docker run -i -t -p 8000:8000 hello-ie
  ```
 * Next, follow the [directions](galaxy-conf/README.md) in the `./galaxy-conf/`
   folder to get the HelloWorld IE installed
