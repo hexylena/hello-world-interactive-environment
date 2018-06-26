@@ -64,8 +64,8 @@ Usage
         -e "PROXY_PREFIX=/galaxy/gie_proxy" \
         -e "REMOTE_HOST=127.0.0.1" \
         -e "USER_EMAIL=hxr@local.host" \
-        -v "/home/hxr/work/galaxy/database/tmp/tmp5HaqZy:/import/" \
-        -v "/home/hxr/work/galaxy/database/files/000/dataset_68.dat:/import/file.dat:ro" \
+        -v "/tmp:/import/" \
+        -v "./README.md:/import/file.dat:ro" \
       hello-ie
   ```
 * In the UI the container should load (with a nice spinner) and then you should see this image:

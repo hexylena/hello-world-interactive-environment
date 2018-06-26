@@ -23,16 +23,10 @@ RUN mkdir -p /import /web/helloworld /run/nginx
 
 COPY ./proxy.conf /proxy.conf
 COPY ./index.html /web/helloworld/
-COPY ./scroll.patch /web/
+RUN chmod ugo+r /web/helloworld/index.html
 
 VOLUME ["/import"]
 WORKDIR /import/
-
-RUN git clone https://github.com/lifenglifeng001/flask-hello /app && \
-    cd /app && \
-    pip install -r requirements.txt && \
-    patch -p1 < /web/scroll.patch
-
 
 EXPOSE 80
 CMD /startup.sh
