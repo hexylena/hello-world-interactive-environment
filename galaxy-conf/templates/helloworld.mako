@@ -7,7 +7,7 @@ ie_request.load_deploy_config()
 # This is a useful way to provide access to large files in the container,
 # if the user knows ahead of time that they will need it.
 user_file = ie_request.volume(
-    hda.file_name, '/import/file.dat', how='ro')
+    hda.file_name, '/import/file.dat', mode='ro')
 
 # Launch the IE. This builds and runs the docker command in the background.
 ie_request.launch(
@@ -30,8 +30,11 @@ ${ ie.load_default_js() }
 ${ ie.default_javascript_variables() }
 var url = '${ url }';
 ${ ie.plugin_require_config() }
-requirejs(['interactive_environments', 'plugin/helloworld'], function(){
-    load_notebook(url);
+requirejs(['galaxy.interactive_environments', 'plugin/helloworld'], function(IES){
+    window.IES = IES
+    IES.load_when_ready(ie_readiness_url, function(){
+        load_notebook(url);
+    });
 });
 </script>
 <div id="main" width="100%" height="100%">
